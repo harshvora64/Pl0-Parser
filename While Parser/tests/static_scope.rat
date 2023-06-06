@@ -1,0 +1,36 @@
+(*Test for static scoping*)
+rational a;
+integer x,
+
+y
+,z;
+boolean b;
+procedure f 
+    procedure g         
+        {
+            print(x);   (*(*3*)*)
+            x := 4; 
+            print(x);   (*4*)    
+        };
+    {   
+        print(x);       (*1*)
+        x := 3;
+        print(x);       (*3*)
+        call g;
+        print(x);       (*4*)
+    };
+procedure h 
+    integer x;
+    {
+        x := 2;
+        print(x);    (*2*)
+        call f;
+        print(x);    (*2*)
+    };
+{
+    x:=1;
+    print(x);        (*1*)
+    call h;
+    print(x);         (*4*)
+}
+(*End *)

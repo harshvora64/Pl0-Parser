@@ -1,0 +1,2982 @@
+
+state 0:
+
+	PROGRAM : . BLOCK 
+
+	LBRACE	reduce by rule 5
+	RATIONAL	shift 5
+	INTEGER	reduce by rule 5
+	BOOLEAN	reduce by rule 5
+	PROCEDURE	reduce by rule 5
+
+	PROGRAM	goto 125
+	BLOCK	goto 4
+	DECLARATIONSEQ	goto 3
+	VARDECLS	goto 2
+	RATVARDECLS	goto 1
+
+	.	error
+
+
+state 1:
+
+	VARDECLS : RATVARDECLS . INTVARDECLS BOOLVARDECLS 
+
+	LBRACE	reduce by rule 7
+	INTEGER	shift 7
+	BOOLEAN	reduce by rule 7
+	PROCEDURE	reduce by rule 7
+
+	INTVARDECLS	goto 6
+
+	.	error
+
+
+state 2:
+
+	DECLARATIONSEQ : VARDECLS . PROCDECLS 
+
+	LBRACE	reduce by rule 13
+	PROCEDURE	shift 10
+
+	PROCDECLS	goto 9
+	PROCDEF	goto 8
+
+	.	error
+
+
+state 3:
+
+	BLOCK : DECLARATIONSEQ . COMMANDSEQ 
+
+	LBRACE	shift 12
+
+	COMMANDSEQ	goto 11
+
+	.	error
+
+
+state 4:
+
+	PROGRAM : BLOCK .  (reduce by rule 0)
+
+	EOF	reduce by rule 0
+
+
+	.	error
+
+
+state 5:
+
+	RATVARDECLS : RATIONAL . IDLIST SEMI 
+
+	ID	shift 14
+
+	IDLIST	goto 13
+
+	.	error
+
+
+state 6:
+
+	VARDECLS : RATVARDECLS INTVARDECLS . BOOLVARDECLS 
+
+	LBRACE	reduce by rule 9
+	BOOLEAN	shift 16
+	PROCEDURE	reduce by rule 9
+
+	BOOLVARDECLS	goto 15
+
+	.	error
+
+
+state 7:
+
+	INTVARDECLS : INTEGER . IDLIST SEMI 
+
+	ID	shift 14
+
+	IDLIST	goto 17
+
+	.	error
+
+
+state 8:
+
+	PROCDECLS : PROCDEF . SEMI PROCDECLS 
+
+	SEMI	shift 18
+
+
+	.	error
+
+
+state 9:
+
+	DECLARATIONSEQ : VARDECLS PROCDECLS .  (reduce by rule 2)
+
+	LBRACE	reduce by rule 2
+
+
+	.	error
+
+
+state 10:
+
+	PROCDEF : PROCEDURE . ID BLOCK 
+
+	ID	shift 19
+
+
+	.	error
+
+
+state 11:
+
+	BLOCK : DECLARATIONSEQ COMMANDSEQ .  (reduce by rule 1)
+
+	SEMI	reduce by rule 1
+	EOF	reduce by rule 1
+
+
+	.	error
+
+
+state 12:
+
+	COMMANDSEQ : LBRACE . COMMANDLIST RBRACE 
+
+	ID	shift 29
+	PRINT	shift 28
+	SHOWRAT	shift 27
+	SHOWDECIMAL	shift 26
+	RBRACE	reduce by rule 17
+	IF	shift 25
+	WHILE	shift 24
+	READ	shift 23
+	CALL	shift 22
+
+	COMMAND	goto 21
+	COMMANDLIST	goto 20
+
+	.	error
+
+
+state 13:
+
+	RATVARDECLS : RATIONAL IDLIST . SEMI 
+
+	SEMI	shift 30
+
+
+	.	error
+
+
+state 14:
+
+	IDLIST : ID . COMMA IDLIST 
+	IDLIST : ID .  (reduce by rule 11)
+
+	SEMI	reduce by rule 11
+	COMMA	shift 31
+
+
+	.	error
+
+
+state 15:
+
+	VARDECLS : RATVARDECLS INTVARDECLS BOOLVARDECLS .  (reduce by rule 3)
+
+	LBRACE	reduce by rule 3
+	PROCEDURE	reduce by rule 3
+
+
+	.	error
+
+
+state 16:
+
+	BOOLVARDECLS : BOOLEAN . IDLIST SEMI 
+
+	ID	shift 14
+
+	IDLIST	goto 32
+
+	.	error
+
+
+state 17:
+
+	INTVARDECLS : INTEGER IDLIST . SEMI 
+
+	SEMI	shift 33
+
+
+	.	error
+
+
+state 18:
+
+	PROCDECLS : PROCDEF SEMI . PROCDECLS 
+
+	LBRACE	reduce by rule 13
+	PROCEDURE	shift 10
+
+	PROCDECLS	goto 34
+	PROCDEF	goto 8
+
+	.	error
+
+
+state 19:
+
+	PROCDEF : PROCEDURE ID . BLOCK 
+
+	LBRACE	reduce by rule 5
+	RATIONAL	shift 5
+	INTEGER	reduce by rule 5
+	BOOLEAN	reduce by rule 5
+	PROCEDURE	reduce by rule 5
+
+	BLOCK	goto 35
+	DECLARATIONSEQ	goto 3
+	VARDECLS	goto 2
+	RATVARDECLS	goto 1
+
+	.	error
+
+
+state 20:
+
+	COMMANDSEQ : LBRACE COMMANDLIST . RBRACE 
+
+	RBRACE	shift 36
+
+
+	.	error
+
+
+state 21:
+
+	COMMANDLIST : COMMAND . SEMI COMMANDLIST 
+
+	SEMI	shift 37
+
+
+	.	error
+
+
+state 22:
+
+	COMMAND : CALL . ID 
+
+	ID	shift 38
+
+
+	.	error
+
+
+state 23:
+
+	COMMAND : READ . LPAREN ID RPAREN 
+
+	LPAREN	shift 39
+
+
+	.	error
+
+
+state 24:
+
+	COMMAND : WHILE . EXP DO COMMANDSEQ OD 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 40
+
+	.	error
+
+
+state 25:
+
+	COMMAND : IF . EXP THEN COMMANDSEQ ELSE COMMANDSEQ FI 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 53
+
+	.	error
+
+
+state 26:
+
+	COMMAND : SHOWDECIMAL . LPAREN EXP RPAREN 
+
+	LPAREN	shift 54
+
+
+	.	error
+
+
+state 27:
+
+	COMMAND : SHOWRAT . LPAREN EXP RPAREN 
+
+	LPAREN	shift 55
+
+
+	.	error
+
+
+state 28:
+
+	COMMAND : PRINT . LPAREN EXP RPAREN 
+
+	LPAREN	shift 56
+
+
+	.	error
+
+
+state 29:
+
+	COMMAND : ID . ASSIGN EXP 
+
+	ASSIGN	shift 57
+
+
+	.	error
+
+
+state 30:
+
+	RATVARDECLS : RATIONAL IDLIST SEMI .  (reduce by rule 4)
+
+	LBRACE	reduce by rule 4
+	INTEGER	reduce by rule 4
+	BOOLEAN	reduce by rule 4
+	PROCEDURE	reduce by rule 4
+
+
+	.	error
+
+
+state 31:
+
+	IDLIST : ID COMMA . IDLIST 
+
+	ID	shift 14
+
+	IDLIST	goto 58
+
+	.	error
+
+
+state 32:
+
+	BOOLVARDECLS : BOOLEAN IDLIST . SEMI 
+
+	SEMI	shift 59
+
+
+	.	error
+
+
+state 33:
+
+	INTVARDECLS : INTEGER IDLIST SEMI .  (reduce by rule 6)
+
+	LBRACE	reduce by rule 6
+	BOOLEAN	reduce by rule 6
+	PROCEDURE	reduce by rule 6
+
+
+	.	error
+
+
+state 34:
+
+	PROCDECLS : PROCDEF SEMI PROCDECLS .  (reduce by rule 12)
+
+	LBRACE	reduce by rule 12
+
+
+	.	error
+
+
+state 35:
+
+	PROCDEF : PROCEDURE ID BLOCK .  (reduce by rule 14)
+
+	SEMI	reduce by rule 14
+
+
+	.	error
+
+
+state 36:
+
+	COMMANDSEQ : LBRACE COMMANDLIST RBRACE .  (reduce by rule 15)
+
+	SEMI	reduce by rule 15
+	EOF	reduce by rule 15
+	ELSE	reduce by rule 15
+	FI	reduce by rule 15
+	OD	reduce by rule 15
+
+
+	.	error
+
+
+state 37:
+
+	COMMANDLIST : COMMAND SEMI . COMMANDLIST 
+
+	ID	shift 29
+	PRINT	shift 28
+	SHOWRAT	shift 27
+	SHOWDECIMAL	shift 26
+	RBRACE	reduce by rule 17
+	IF	shift 25
+	WHILE	shift 24
+	READ	shift 23
+	CALL	shift 22
+
+	COMMAND	goto 21
+	COMMANDLIST	goto 60
+
+	.	error
+
+
+state 38:
+
+	COMMAND : CALL ID .  (reduce by rule 19)
+
+	SEMI	reduce by rule 19
+
+
+	.	error
+
+
+state 39:
+
+	COMMAND : READ LPAREN . ID RPAREN 
+
+	ID	shift 61
+
+
+	.	error
+
+
+state 40:
+
+	COMMAND : WHILE EXP . DO COMMANDSEQ OD 
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	DO	shift 62
+
+
+	.	error
+
+
+state 41:
+
+	EXP : LPAREN . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 80
+
+	.	error
+
+
+state 42:
+
+	EXP : NOT . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 81
+
+	.	error
+
+
+state 43:
+
+	EXP : FALSE .  (reduce by rule 43)
+
+	PLUS	reduce by rule 43
+	TIMES	reduce by rule 43
+	DIV	reduce by rule 43
+	SUB	reduce by rule 43
+	INT_PLUS	reduce by rule 43
+	INT_TIMES	reduce by rule 43
+	INT_MOD	reduce by rule 43
+	INT_DIV	reduce by rule 43
+	INT_SUB	reduce by rule 43
+	SEMI	reduce by rule 43
+	ANDALSO	reduce by rule 43
+	ORELSE	reduce by rule 43
+	EQUALS	reduce by rule 43
+	NOTEQUALS	reduce by rule 43
+	LESSTHAN	reduce by rule 43
+	LESSTHANEQUALS	reduce by rule 43
+	GREATERTHAN	reduce by rule 43
+	GREATERTHANEQUALS	reduce by rule 43
+	RPAREN	reduce by rule 43
+	COMMA	reduce by rule 43
+	THEN	reduce by rule 43
+	DO	reduce by rule 43
+
+
+	.	error
+
+
+state 44:
+
+	EXP : TRUE .  (reduce by rule 42)
+
+	PLUS	reduce by rule 42
+	TIMES	reduce by rule 42
+	DIV	reduce by rule 42
+	SUB	reduce by rule 42
+	INT_PLUS	reduce by rule 42
+	INT_TIMES	reduce by rule 42
+	INT_MOD	reduce by rule 42
+	INT_DIV	reduce by rule 42
+	INT_SUB	reduce by rule 42
+	SEMI	reduce by rule 42
+	ANDALSO	reduce by rule 42
+	ORELSE	reduce by rule 42
+	EQUALS	reduce by rule 42
+	NOTEQUALS	reduce by rule 42
+	LESSTHAN	reduce by rule 42
+	LESSTHANEQUALS	reduce by rule 42
+	GREATERTHAN	reduce by rule 42
+	GREATERTHANEQUALS	reduce by rule 42
+	RPAREN	reduce by rule 42
+	COMMA	reduce by rule 42
+	THEN	reduce by rule 42
+	DO	reduce by rule 42
+
+
+	.	error
+
+
+state 45:
+
+	EXP : RINT .  (reduce by rule 26)
+
+	PLUS	reduce by rule 26
+	TIMES	reduce by rule 26
+	DIV	reduce by rule 26
+	SUB	reduce by rule 26
+	INT_PLUS	reduce by rule 26
+	INT_TIMES	reduce by rule 26
+	INT_MOD	reduce by rule 26
+	INT_DIV	reduce by rule 26
+	INT_SUB	reduce by rule 26
+	SEMI	reduce by rule 26
+	ANDALSO	reduce by rule 26
+	ORELSE	reduce by rule 26
+	EQUALS	reduce by rule 26
+	NOTEQUALS	reduce by rule 26
+	LESSTHAN	reduce by rule 26
+	LESSTHANEQUALS	reduce by rule 26
+	GREATERTHAN	reduce by rule 26
+	GREATERTHANEQUALS	reduce by rule 26
+	RPAREN	reduce by rule 26
+	COMMA	reduce by rule 26
+	THEN	reduce by rule 26
+	DO	reduce by rule 26
+
+
+	.	error
+
+
+state 46:
+
+	EXP : FROMDECIMAL . LPAREN EXP RPAREN 
+
+	LPAREN	shift 82
+
+
+	.	error
+
+
+state 47:
+
+	EXP : MAKE_RAT . LPAREN EXP COMMA EXP RPAREN 
+
+	LPAREN	shift 83
+
+
+	.	error
+
+
+state 48:
+
+	EXP : INVERSE . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 84
+
+	.	error
+
+
+state 49:
+
+	EXP : RDEC .  (reduce by rule 34)
+
+	PLUS	reduce by rule 34
+	TIMES	reduce by rule 34
+	DIV	reduce by rule 34
+	SUB	reduce by rule 34
+	INT_PLUS	reduce by rule 34
+	INT_TIMES	reduce by rule 34
+	INT_MOD	reduce by rule 34
+	INT_DIV	reduce by rule 34
+	INT_SUB	reduce by rule 34
+	SEMI	reduce by rule 34
+	ANDALSO	reduce by rule 34
+	ORELSE	reduce by rule 34
+	EQUALS	reduce by rule 34
+	NOTEQUALS	reduce by rule 34
+	LESSTHAN	reduce by rule 34
+	LESSTHANEQUALS	reduce by rule 34
+	GREATERTHAN	reduce by rule 34
+	GREATERTHANEQUALS	reduce by rule 34
+	RPAREN	reduce by rule 34
+	COMMA	reduce by rule 34
+	THEN	reduce by rule 34
+	DO	reduce by rule 34
+
+
+	.	error
+
+
+state 50:
+
+	EXP : RFRAC .  (reduce by rule 33)
+
+	PLUS	reduce by rule 33
+	TIMES	reduce by rule 33
+	DIV	reduce by rule 33
+	SUB	reduce by rule 33
+	INT_PLUS	reduce by rule 33
+	INT_TIMES	reduce by rule 33
+	INT_MOD	reduce by rule 33
+	INT_DIV	reduce by rule 33
+	INT_SUB	reduce by rule 33
+	SEMI	reduce by rule 33
+	ANDALSO	reduce by rule 33
+	ORELSE	reduce by rule 33
+	EQUALS	reduce by rule 33
+	NOTEQUALS	reduce by rule 33
+	LESSTHAN	reduce by rule 33
+	LESSTHANEQUALS	reduce by rule 33
+	GREATERTHAN	reduce by rule 33
+	GREATERTHANEQUALS	reduce by rule 33
+	RPAREN	reduce by rule 33
+	COMMA	reduce by rule 33
+	THEN	reduce by rule 33
+	DO	reduce by rule 33
+
+
+	.	error
+
+
+state 51:
+
+	EXP : UNMINUS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 85
+
+	.	error
+
+
+state 52:
+
+	EXP : ID .  (reduce by rule 54)
+
+	PLUS	reduce by rule 54
+	TIMES	reduce by rule 54
+	DIV	reduce by rule 54
+	SUB	reduce by rule 54
+	INT_PLUS	reduce by rule 54
+	INT_TIMES	reduce by rule 54
+	INT_MOD	reduce by rule 54
+	INT_DIV	reduce by rule 54
+	INT_SUB	reduce by rule 54
+	SEMI	reduce by rule 54
+	ANDALSO	reduce by rule 54
+	ORELSE	reduce by rule 54
+	EQUALS	reduce by rule 54
+	NOTEQUALS	reduce by rule 54
+	LESSTHAN	reduce by rule 54
+	LESSTHANEQUALS	reduce by rule 54
+	GREATERTHAN	reduce by rule 54
+	GREATERTHANEQUALS	reduce by rule 54
+	RPAREN	reduce by rule 54
+	COMMA	reduce by rule 54
+	THEN	reduce by rule 54
+	DO	reduce by rule 54
+
+
+	.	error
+
+
+state 53:
+
+	COMMAND : IF EXP . THEN COMMANDSEQ ELSE COMMANDSEQ FI 
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	THEN	shift 86
+
+
+	.	error
+
+
+state 54:
+
+	COMMAND : SHOWDECIMAL LPAREN . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 87
+
+	.	error
+
+
+state 55:
+
+	COMMAND : SHOWRAT LPAREN . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 88
+
+	.	error
+
+
+state 56:
+
+	COMMAND : PRINT LPAREN . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 89
+
+	.	error
+
+
+state 57:
+
+	COMMAND : ID ASSIGN . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 90
+
+	.	error
+
+
+state 58:
+
+	IDLIST : ID COMMA IDLIST .  (reduce by rule 10)
+
+	SEMI	reduce by rule 10
+
+
+	.	error
+
+
+state 59:
+
+	BOOLVARDECLS : BOOLEAN IDLIST SEMI .  (reduce by rule 8)
+
+	LBRACE	reduce by rule 8
+	PROCEDURE	reduce by rule 8
+
+
+	.	error
+
+
+state 60:
+
+	COMMANDLIST : COMMAND SEMI COMMANDLIST .  (reduce by rule 16)
+
+	RBRACE	reduce by rule 16
+
+
+	.	error
+
+
+state 61:
+
+	COMMAND : READ LPAREN ID . RPAREN 
+
+	RPAREN	shift 91
+
+
+	.	error
+
+
+state 62:
+
+	COMMAND : WHILE EXP DO . COMMANDSEQ OD 
+
+	LBRACE	shift 12
+
+	COMMANDSEQ	goto 92
+
+	.	error
+
+
+state 63:
+
+	EXP : EXP GREATERTHANEQUALS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 93
+
+	.	error
+
+
+state 64:
+
+	EXP : EXP GREATERTHAN . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 94
+
+	.	error
+
+
+state 65:
+
+	EXP : EXP LESSTHANEQUALS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 95
+
+	.	error
+
+
+state 66:
+
+	EXP : EXP LESSTHAN . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 96
+
+	.	error
+
+
+state 67:
+
+	EXP : EXP NOTEQUALS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 97
+
+	.	error
+
+
+state 68:
+
+	EXP : EXP EQUALS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 98
+
+	.	error
+
+
+state 69:
+
+	EXP : EXP ORELSE . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 99
+
+	.	error
+
+
+state 70:
+
+	EXP : EXP ANDALSO . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 100
+
+	.	error
+
+
+state 71:
+
+	EXP : EXP INT_SUB . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 101
+
+	.	error
+
+
+state 72:
+
+	EXP : EXP INT_DIV . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 102
+
+	.	error
+
+
+state 73:
+
+	EXP : EXP INT_MOD . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 103
+
+	.	error
+
+
+state 74:
+
+	EXP : EXP INT_TIMES . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 104
+
+	.	error
+
+
+state 75:
+
+	EXP : EXP INT_PLUS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 105
+
+	.	error
+
+
+state 76:
+
+	EXP : EXP SUB . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 106
+
+	.	error
+
+
+state 77:
+
+	EXP : EXP DIV . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 107
+
+	.	error
+
+
+state 78:
+
+	EXP : EXP TIMES . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 108
+
+	.	error
+
+
+state 79:
+
+	EXP : EXP PLUS . EXP 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 109
+
+	.	error
+
+
+state 80:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+	EXP : LPAREN EXP . RPAREN 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 110
+
+
+	.	error
+
+
+state 81:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+	EXP : NOT EXP .  (reduce by rule 52)
+
+	PLUS	reduce by rule 52
+	TIMES	reduce by rule 52
+	DIV	reduce by rule 52
+	SUB	reduce by rule 52
+	INT_PLUS	reduce by rule 52
+	INT_TIMES	reduce by rule 52
+	INT_MOD	reduce by rule 52
+	INT_DIV	reduce by rule 52
+	INT_SUB	reduce by rule 52
+	SEMI	reduce by rule 52
+	ANDALSO	reduce by rule 52
+	ORELSE	reduce by rule 52
+	EQUALS	reduce by rule 52
+	NOTEQUALS	reduce by rule 52
+	LESSTHAN	reduce by rule 52
+	LESSTHANEQUALS	reduce by rule 52
+	GREATERTHAN	reduce by rule 52
+	GREATERTHANEQUALS	reduce by rule 52
+	RPAREN	reduce by rule 52
+	COMMA	reduce by rule 52
+	THEN	reduce by rule 52
+	DO	reduce by rule 52
+
+
+	.	error
+
+
+state 82:
+
+	EXP : FROMDECIMAL LPAREN . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 111
+
+	.	error
+
+
+state 83:
+
+	EXP : MAKE_RAT LPAREN . EXP COMMA EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 112
+
+	.	error
+
+
+state 84:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : INVERSE EXP .  (reduce by rule 39)
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 39
+	TIMES	reduce by rule 39
+	DIV	reduce by rule 39
+	SUB	reduce by rule 39
+	INT_PLUS	reduce by rule 39
+	INT_TIMES	reduce by rule 39
+	INT_MOD	reduce by rule 39
+	INT_DIV	reduce by rule 39
+	INT_SUB	reduce by rule 39
+	SEMI	reduce by rule 39
+	ANDALSO	reduce by rule 39
+	ORELSE	reduce by rule 39
+	EQUALS	reduce by rule 39
+	NOTEQUALS	reduce by rule 39
+	LESSTHAN	reduce by rule 39
+	LESSTHANEQUALS	reduce by rule 39
+	GREATERTHAN	reduce by rule 39
+	GREATERTHANEQUALS	reduce by rule 39
+	RPAREN	reduce by rule 39
+	COMMA	reduce by rule 39
+	THEN	reduce by rule 39
+	DO	reduce by rule 39
+
+
+	.	error
+
+
+state 85:
+
+	EXP : UNMINUS EXP .  (reduce by rule 27)
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 27
+	TIMES	reduce by rule 27
+	DIV	reduce by rule 27
+	SUB	reduce by rule 27
+	INT_PLUS	reduce by rule 27
+	INT_TIMES	reduce by rule 27
+	INT_MOD	reduce by rule 27
+	INT_DIV	reduce by rule 27
+	INT_SUB	reduce by rule 27
+	SEMI	reduce by rule 27
+	ANDALSO	reduce by rule 27
+	ORELSE	reduce by rule 27
+	EQUALS	reduce by rule 27
+	NOTEQUALS	reduce by rule 27
+	LESSTHAN	reduce by rule 27
+	LESSTHANEQUALS	reduce by rule 27
+	GREATERTHAN	reduce by rule 27
+	GREATERTHANEQUALS	reduce by rule 27
+	RPAREN	reduce by rule 27
+	COMMA	reduce by rule 27
+	THEN	reduce by rule 27
+	DO	reduce by rule 27
+
+
+	.	error
+
+
+state 86:
+
+	COMMAND : IF EXP THEN . COMMANDSEQ ELSE COMMANDSEQ FI 
+
+	LBRACE	shift 12
+
+	COMMANDSEQ	goto 113
+
+	.	error
+
+
+state 87:
+
+	COMMAND : SHOWDECIMAL LPAREN EXP . RPAREN 
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 114
+
+
+	.	error
+
+
+state 88:
+
+	COMMAND : SHOWRAT LPAREN EXP . RPAREN 
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 115
+
+
+	.	error
+
+
+state 89:
+
+	COMMAND : PRINT LPAREN EXP . RPAREN 
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 116
+
+
+	.	error
+
+
+state 90:
+
+	COMMAND : ID ASSIGN EXP .  (reduce by rule 18)
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 18
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+
+
+	.	error
+
+
+state 91:
+
+	COMMAND : READ LPAREN ID RPAREN .  (reduce by rule 20)
+
+	SEMI	reduce by rule 20
+
+
+	.	error
+
+
+state 92:
+
+	COMMAND : WHILE EXP DO COMMANDSEQ . OD 
+
+	OD	shift 117
+
+
+	.	error
+
+
+state 93:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP GREATERTHANEQUALS EXP .  (reduce by rule 47)
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 47
+	ANDALSO	reduce by rule 47
+	ORELSE	reduce by rule 47
+	EQUALS	reduce by rule 47
+	NOTEQUALS	reduce by rule 47
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 47
+	COMMA	reduce by rule 47
+	THEN	reduce by rule 47
+	DO	reduce by rule 47
+
+
+	.	error
+
+
+state 94:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP GREATERTHAN EXP .  (reduce by rule 49)
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 49
+	ANDALSO	reduce by rule 49
+	ORELSE	reduce by rule 49
+	EQUALS	reduce by rule 49
+	NOTEQUALS	reduce by rule 49
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 49
+	COMMA	reduce by rule 49
+	THEN	reduce by rule 49
+	DO	reduce by rule 49
+
+
+	.	error
+
+
+state 95:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP LESSTHANEQUALS EXP .  (reduce by rule 48)
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 48
+	ANDALSO	reduce by rule 48
+	ORELSE	reduce by rule 48
+	EQUALS	reduce by rule 48
+	NOTEQUALS	reduce by rule 48
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 48
+	COMMA	reduce by rule 48
+	THEN	reduce by rule 48
+	DO	reduce by rule 48
+
+
+	.	error
+
+
+state 96:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP LESSTHAN EXP .  (reduce by rule 46)
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 46
+	ANDALSO	reduce by rule 46
+	ORELSE	reduce by rule 46
+	EQUALS	reduce by rule 46
+	NOTEQUALS	reduce by rule 46
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 46
+	COMMA	reduce by rule 46
+	THEN	reduce by rule 46
+	DO	reduce by rule 46
+
+
+	.	error
+
+
+state 97:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP NOTEQUALS EXP .  (reduce by rule 45)
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 45
+	ANDALSO	reduce by rule 45
+	ORELSE	reduce by rule 45
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 45
+	COMMA	reduce by rule 45
+	THEN	reduce by rule 45
+	DO	reduce by rule 45
+
+
+	.	error
+
+
+state 98:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP EQUALS EXP .  (reduce by rule 44)
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 44
+	ANDALSO	reduce by rule 44
+	ORELSE	reduce by rule 44
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 44
+	COMMA	reduce by rule 44
+	THEN	reduce by rule 44
+	DO	reduce by rule 44
+
+
+	.	error
+
+
+state 99:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+	EXP : EXP ORELSE EXP .  (reduce by rule 51)
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 51
+	ANDALSO	reduce by rule 51
+	ORELSE	reduce by rule 51
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 51
+	COMMA	reduce by rule 51
+	THEN	reduce by rule 51
+	DO	reduce by rule 51
+
+
+	.	error
+
+
+state 100:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP ANDALSO EXP .  (reduce by rule 50)
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 50
+	ANDALSO	reduce by rule 50
+	ORELSE	reduce by rule 50
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	reduce by rule 50
+	COMMA	reduce by rule 50
+	THEN	reduce by rule 50
+	DO	reduce by rule 50
+
+
+	.	error
+
+
+state 101:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP INT_SUB EXP .  (reduce by rule 31)
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 31
+	TIMES	reduce by rule 31
+	DIV	reduce by rule 31
+	SUB	reduce by rule 31
+	INT_PLUS	reduce by rule 31
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	reduce by rule 31
+	SEMI	reduce by rule 31
+	ANDALSO	reduce by rule 31
+	ORELSE	reduce by rule 31
+	EQUALS	reduce by rule 31
+	NOTEQUALS	reduce by rule 31
+	LESSTHAN	reduce by rule 31
+	LESSTHANEQUALS	reduce by rule 31
+	GREATERTHAN	reduce by rule 31
+	GREATERTHANEQUALS	reduce by rule 31
+	RPAREN	reduce by rule 31
+	COMMA	reduce by rule 31
+	THEN	reduce by rule 31
+	DO	reduce by rule 31
+
+
+	.	error
+
+
+state 102:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP INT_DIV EXP .  (reduce by rule 30)
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 30
+	TIMES	reduce by rule 30
+	DIV	reduce by rule 30
+	SUB	reduce by rule 30
+	INT_PLUS	reduce by rule 30
+	INT_TIMES	reduce by rule 30
+	INT_MOD	reduce by rule 30
+	INT_DIV	reduce by rule 30
+	INT_SUB	reduce by rule 30
+	SEMI	reduce by rule 30
+	ANDALSO	reduce by rule 30
+	ORELSE	reduce by rule 30
+	EQUALS	reduce by rule 30
+	NOTEQUALS	reduce by rule 30
+	LESSTHAN	reduce by rule 30
+	LESSTHANEQUALS	reduce by rule 30
+	GREATERTHAN	reduce by rule 30
+	GREATERTHANEQUALS	reduce by rule 30
+	RPAREN	reduce by rule 30
+	COMMA	reduce by rule 30
+	THEN	reduce by rule 30
+	DO	reduce by rule 30
+
+
+	.	error
+
+
+state 103:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP INT_MOD EXP .  (reduce by rule 32)
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 32
+	TIMES	reduce by rule 32
+	DIV	reduce by rule 32
+	SUB	reduce by rule 32
+	INT_PLUS	reduce by rule 32
+	INT_TIMES	reduce by rule 32
+	INT_MOD	reduce by rule 32
+	INT_DIV	reduce by rule 32
+	INT_SUB	reduce by rule 32
+	SEMI	reduce by rule 32
+	ANDALSO	reduce by rule 32
+	ORELSE	reduce by rule 32
+	EQUALS	reduce by rule 32
+	NOTEQUALS	reduce by rule 32
+	LESSTHAN	reduce by rule 32
+	LESSTHANEQUALS	reduce by rule 32
+	GREATERTHAN	reduce by rule 32
+	GREATERTHANEQUALS	reduce by rule 32
+	RPAREN	reduce by rule 32
+	COMMA	reduce by rule 32
+	THEN	reduce by rule 32
+	DO	reduce by rule 32
+
+
+	.	error
+
+
+state 104:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP INT_TIMES EXP .  (reduce by rule 29)
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 29
+	TIMES	reduce by rule 29
+	DIV	reduce by rule 29
+	SUB	reduce by rule 29
+	INT_PLUS	reduce by rule 29
+	INT_TIMES	reduce by rule 29
+	INT_MOD	reduce by rule 29
+	INT_DIV	reduce by rule 29
+	INT_SUB	reduce by rule 29
+	SEMI	reduce by rule 29
+	ANDALSO	reduce by rule 29
+	ORELSE	reduce by rule 29
+	EQUALS	reduce by rule 29
+	NOTEQUALS	reduce by rule 29
+	LESSTHAN	reduce by rule 29
+	LESSTHANEQUALS	reduce by rule 29
+	GREATERTHAN	reduce by rule 29
+	GREATERTHANEQUALS	reduce by rule 29
+	RPAREN	reduce by rule 29
+	COMMA	reduce by rule 29
+	THEN	reduce by rule 29
+	DO	reduce by rule 29
+
+
+	.	error
+
+
+state 105:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP INT_PLUS EXP .  (reduce by rule 28)
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 28
+	TIMES	reduce by rule 28
+	DIV	reduce by rule 28
+	SUB	reduce by rule 28
+	INT_PLUS	reduce by rule 28
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	reduce by rule 28
+	SEMI	reduce by rule 28
+	ANDALSO	reduce by rule 28
+	ORELSE	reduce by rule 28
+	EQUALS	reduce by rule 28
+	NOTEQUALS	reduce by rule 28
+	LESSTHAN	reduce by rule 28
+	LESSTHANEQUALS	reduce by rule 28
+	GREATERTHAN	reduce by rule 28
+	GREATERTHANEQUALS	reduce by rule 28
+	RPAREN	reduce by rule 28
+	COMMA	reduce by rule 28
+	THEN	reduce by rule 28
+	DO	reduce by rule 28
+
+
+	.	error
+
+
+state 106:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP SUB EXP .  (reduce by rule 38)
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 38
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	reduce by rule 38
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 38
+	ANDALSO	reduce by rule 38
+	ORELSE	reduce by rule 38
+	EQUALS	reduce by rule 38
+	NOTEQUALS	reduce by rule 38
+	LESSTHAN	reduce by rule 38
+	LESSTHANEQUALS	reduce by rule 38
+	GREATERTHAN	reduce by rule 38
+	GREATERTHANEQUALS	reduce by rule 38
+	RPAREN	reduce by rule 38
+	COMMA	reduce by rule 38
+	THEN	reduce by rule 38
+	DO	reduce by rule 38
+
+
+	.	error
+
+
+state 107:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP DIV EXP .  (reduce by rule 37)
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 37
+	TIMES	reduce by rule 37
+	DIV	reduce by rule 37
+	SUB	reduce by rule 37
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 37
+	ANDALSO	reduce by rule 37
+	ORELSE	reduce by rule 37
+	EQUALS	reduce by rule 37
+	NOTEQUALS	reduce by rule 37
+	LESSTHAN	reduce by rule 37
+	LESSTHANEQUALS	reduce by rule 37
+	GREATERTHAN	reduce by rule 37
+	GREATERTHANEQUALS	reduce by rule 37
+	RPAREN	reduce by rule 37
+	COMMA	reduce by rule 37
+	THEN	reduce by rule 37
+	DO	reduce by rule 37
+
+
+	.	error
+
+
+state 108:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP TIMES EXP .  (reduce by rule 36)
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 36
+	TIMES	reduce by rule 36
+	DIV	reduce by rule 36
+	SUB	reduce by rule 36
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 36
+	ANDALSO	reduce by rule 36
+	ORELSE	reduce by rule 36
+	EQUALS	reduce by rule 36
+	NOTEQUALS	reduce by rule 36
+	LESSTHAN	reduce by rule 36
+	LESSTHANEQUALS	reduce by rule 36
+	GREATERTHAN	reduce by rule 36
+	GREATERTHANEQUALS	reduce by rule 36
+	RPAREN	reduce by rule 36
+	COMMA	reduce by rule 36
+	THEN	reduce by rule 36
+	DO	reduce by rule 36
+
+
+	.	error
+
+
+state 109:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP PLUS EXP .  (reduce by rule 35)
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	reduce by rule 35
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	reduce by rule 35
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	SEMI	reduce by rule 35
+	ANDALSO	reduce by rule 35
+	ORELSE	reduce by rule 35
+	EQUALS	reduce by rule 35
+	NOTEQUALS	reduce by rule 35
+	LESSTHAN	reduce by rule 35
+	LESSTHANEQUALS	reduce by rule 35
+	GREATERTHAN	reduce by rule 35
+	GREATERTHANEQUALS	reduce by rule 35
+	RPAREN	reduce by rule 35
+	COMMA	reduce by rule 35
+	THEN	reduce by rule 35
+	DO	reduce by rule 35
+
+
+	.	error
+
+
+state 110:
+
+	EXP : LPAREN EXP RPAREN .  (reduce by rule 53)
+
+	PLUS	reduce by rule 53
+	TIMES	reduce by rule 53
+	DIV	reduce by rule 53
+	SUB	reduce by rule 53
+	INT_PLUS	reduce by rule 53
+	INT_TIMES	reduce by rule 53
+	INT_MOD	reduce by rule 53
+	INT_DIV	reduce by rule 53
+	INT_SUB	reduce by rule 53
+	SEMI	reduce by rule 53
+	ANDALSO	reduce by rule 53
+	ORELSE	reduce by rule 53
+	EQUALS	reduce by rule 53
+	NOTEQUALS	reduce by rule 53
+	LESSTHAN	reduce by rule 53
+	LESSTHANEQUALS	reduce by rule 53
+	GREATERTHAN	reduce by rule 53
+	GREATERTHANEQUALS	reduce by rule 53
+	RPAREN	reduce by rule 53
+	COMMA	reduce by rule 53
+	THEN	reduce by rule 53
+	DO	reduce by rule 53
+
+
+	.	error
+
+
+state 111:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : FROMDECIMAL LPAREN EXP . RPAREN 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 118
+
+
+	.	error
+
+
+state 112:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : MAKE_RAT LPAREN EXP . COMMA EXP RPAREN 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	COMMA	shift 119
+
+
+	.	error
+
+
+state 113:
+
+	COMMAND : IF EXP THEN COMMANDSEQ . ELSE COMMANDSEQ FI 
+
+	ELSE	shift 120
+
+
+	.	error
+
+
+state 114:
+
+	COMMAND : SHOWDECIMAL LPAREN EXP RPAREN .  (reduce by rule 25)
+
+	SEMI	reduce by rule 25
+
+
+	.	error
+
+
+state 115:
+
+	COMMAND : SHOWRAT LPAREN EXP RPAREN .  (reduce by rule 24)
+
+	SEMI	reduce by rule 24
+
+
+	.	error
+
+
+state 116:
+
+	COMMAND : PRINT LPAREN EXP RPAREN .  (reduce by rule 21)
+
+	SEMI	reduce by rule 21
+
+
+	.	error
+
+
+state 117:
+
+	COMMAND : WHILE EXP DO COMMANDSEQ OD .  (reduce by rule 23)
+
+	SEMI	reduce by rule 23
+
+
+	.	error
+
+
+state 118:
+
+	EXP : FROMDECIMAL LPAREN EXP RPAREN .  (reduce by rule 41)
+
+	PLUS	reduce by rule 41
+	TIMES	reduce by rule 41
+	DIV	reduce by rule 41
+	SUB	reduce by rule 41
+	INT_PLUS	reduce by rule 41
+	INT_TIMES	reduce by rule 41
+	INT_MOD	reduce by rule 41
+	INT_DIV	reduce by rule 41
+	INT_SUB	reduce by rule 41
+	SEMI	reduce by rule 41
+	ANDALSO	reduce by rule 41
+	ORELSE	reduce by rule 41
+	EQUALS	reduce by rule 41
+	NOTEQUALS	reduce by rule 41
+	LESSTHAN	reduce by rule 41
+	LESSTHANEQUALS	reduce by rule 41
+	GREATERTHAN	reduce by rule 41
+	GREATERTHANEQUALS	reduce by rule 41
+	RPAREN	reduce by rule 41
+	COMMA	reduce by rule 41
+	THEN	reduce by rule 41
+	DO	reduce by rule 41
+
+
+	.	error
+
+
+state 119:
+
+	EXP : MAKE_RAT LPAREN EXP COMMA . EXP RPAREN 
+
+	ID	shift 52
+	UNMINUS	shift 51
+	RFRAC	shift 50
+	RDEC	shift 49
+	INVERSE	shift 48
+	MAKE_RAT	shift 47
+	FROMDECIMAL	shift 46
+	RINT	shift 45
+	TRUE	shift 44
+	FALSE	shift 43
+	NOT	shift 42
+	LPAREN	shift 41
+
+	EXP	goto 121
+
+	.	error
+
+
+state 120:
+
+	COMMAND : IF EXP THEN COMMANDSEQ ELSE . COMMANDSEQ FI 
+
+	LBRACE	shift 12
+
+	COMMANDSEQ	goto 122
+
+	.	error
+
+
+state 121:
+
+	EXP : EXP . INT_PLUS EXP 
+	EXP : EXP . INT_TIMES EXP 
+	EXP : EXP . INT_DIV EXP 
+	EXP : EXP . INT_SUB EXP 
+	EXP : EXP . INT_MOD EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . SUB EXP 
+	EXP : MAKE_RAT LPAREN EXP COMMA EXP . RPAREN 
+	EXP : EXP . EQUALS EXP 
+	EXP : EXP . NOTEQUALS EXP 
+	EXP : EXP . LESSTHAN EXP 
+	EXP : EXP . GREATERTHANEQUALS EXP 
+	EXP : EXP . LESSTHANEQUALS EXP 
+	EXP : EXP . GREATERTHAN EXP 
+	EXP : EXP . ANDALSO EXP 
+	EXP : EXP . ORELSE EXP 
+
+	PLUS	shift 79
+	TIMES	shift 78
+	DIV	shift 77
+	SUB	shift 76
+	INT_PLUS	shift 75
+	INT_TIMES	shift 74
+	INT_MOD	shift 73
+	INT_DIV	shift 72
+	INT_SUB	shift 71
+	ANDALSO	shift 70
+	ORELSE	shift 69
+	EQUALS	shift 68
+	NOTEQUALS	shift 67
+	LESSTHAN	shift 66
+	LESSTHANEQUALS	shift 65
+	GREATERTHAN	shift 64
+	GREATERTHANEQUALS	shift 63
+	RPAREN	shift 123
+
+
+	.	error
+
+
+state 122:
+
+	COMMAND : IF EXP THEN COMMANDSEQ ELSE COMMANDSEQ . FI 
+
+	FI	shift 124
+
+
+	.	error
+
+
+state 123:
+
+	EXP : MAKE_RAT LPAREN EXP COMMA EXP RPAREN .  (reduce by rule 40)
+
+	PLUS	reduce by rule 40
+	TIMES	reduce by rule 40
+	DIV	reduce by rule 40
+	SUB	reduce by rule 40
+	INT_PLUS	reduce by rule 40
+	INT_TIMES	reduce by rule 40
+	INT_MOD	reduce by rule 40
+	INT_DIV	reduce by rule 40
+	INT_SUB	reduce by rule 40
+	SEMI	reduce by rule 40
+	ANDALSO	reduce by rule 40
+	ORELSE	reduce by rule 40
+	EQUALS	reduce by rule 40
+	NOTEQUALS	reduce by rule 40
+	LESSTHAN	reduce by rule 40
+	LESSTHANEQUALS	reduce by rule 40
+	GREATERTHAN	reduce by rule 40
+	GREATERTHANEQUALS	reduce by rule 40
+	RPAREN	reduce by rule 40
+	COMMA	reduce by rule 40
+	THEN	reduce by rule 40
+	DO	reduce by rule 40
+
+
+	.	error
+
+
+state 124:
+
+	COMMAND : IF EXP THEN COMMANDSEQ ELSE COMMANDSEQ FI .  (reduce by rule 22)
+
+	SEMI	reduce by rule 22
+
+
+	.	error
+
+
+state 125:
+
+
+	EOF	accept
+
+
+	.	error
+
+909 of 1405 action table entries left after compaction
+57 goto table entries

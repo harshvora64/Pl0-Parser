@@ -1,0 +1,10 @@
+parseFile("tests/check.rat");
+parseFile("tests/example.rat");
+parseFile("tests/static_scope.rat");
+parseFile("tests/scope.rat");
+parseFile("tests/nested_if.rat");
+parseFile("tests/fibonacci.rat");
+parseFile("tests/recursive.rat");
+parseFile("tests/exp2.rat");
+parseFile("tests/exp1.rat");
+parseFile("tests/scope2.rat");

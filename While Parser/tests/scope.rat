@@ -1,0 +1,19 @@
+rational r1,r2,
+
+r3;
+integer i1,i2;
+boolean b1,b2;
+
+procedure change
+    rational i1;        
+    {
+        i1:=fromDecimal(1.0(1));   (*(*should refer to rational i1*)*)
+        print(i1);    (*should refer to local rational i1*)
+    };
+
+{
+    i1:=4;
+    print(i1);
+    call change;
+    print(i1);
+}

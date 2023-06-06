@@ -1,0 +1,52 @@
+rational x,y,           z;
+integer a,b,
+
+c;
+boolean d,e,           f;
+
+{
+    a:=2;                    
+    b:=a+a+a*a+a/a;      (*9*)
+    c:=(a+b)*(1)*(a+b);   (*121*)
+    x := fromDecimal(1.(3));  (*4/3*)
+    y := x.*.make_rat(c,b);  (*484/27*)
+    z := x./.y;      (*9/121*)
+    d := tt;
+    e := ff;
+    f := ! ((d && e) || (e));      (*TT*)    
+    print(a);      (*2*)
+    print(b);      (*9*)
+    print(c);      (*121*) 
+    print(x);      (*4/3*)
+    print(y);      (*484/27*)
+    print(z);      (*9/121*)
+    print(d);      (*TT*)
+    print(e);      (*FF*)
+    print(f);       (*TT*)   
+    print(a<b);     (*TT*)
+    print(a<=b);    (*TT*)
+    print(a<>b);    (*TT*)
+    print(a=b);     (*FF*)
+    print(a>b);     (*FF*)
+    print(a>=b);    (*FF*)
+    print(x<z);     (*FF*)
+    print(x<=z);    (*FF*)
+    print(x<>z);     (*TT*)
+    print(x=z);     (*FF*)
+    print(x>z);      (*TT*)
+    print(x>=z);    (*(*TT*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))); (*99.(0)*)  *)
+    print(z.*.make_rat(121,1).*.make_rat(11,1));  (*99.(0)*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))<=z.*.make_rat(121,1).*.make_rat(11,1));  (*TT*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))<>z.*.make_rat(121,1).*.make_rat(11,1));  (*FF*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))=z.*.make_rat(121,1).*.make_rat(11,1));    (*TT*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))>=z.*.make_rat(121,1).*.make_rat(11,1));    (*TT*)
+    print(make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))>z.*.make_rat(121,1).*.make_rat(11,1));    (*ff*)
+    f:=make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))<=z.*.make_rat(121,1).*.make_rat(11,1);   
+    print(f);    (*TT*)
+    print(!(f));   (*FF*)
+    print(f&&e);   (*FF*)
+    print(f||e);   (*TT*)
+    print(make_rat(a,1)>make_rat(b,1) || make_rat((c/(a+b))*(3),1)./.fromDecimal(0.(3))<=z.*.make_rat(121,1).*.make_rat(11,1)); (*FF*)
+
+}
